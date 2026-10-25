@@ -1,0 +1,77 @@
+:root {
+  --fond: #f4f6f5; --carte: #ffffff; --texte: #15201d; --sourd: #5b6b67;
+  --accent: #1b5e52; --accent-texte: #ffffff; --bord: #d7ddda; --alerte: #8a4b00; --alerte-fond: #fff4e5;
+  --ok-fond: #e7f3ef; --exclu: #9a3b3b; --chip: #eef1f0;
+}
+@media (prefers-color-scheme: dark) {
+  :root { --fond: #101514; --carte: #1a211f; --texte: #e8ecea; --sourd: #9fb0ab; --accent: #4fb39d; --accent-texte: #0d1a17; --bord: #2c3835; --alerte: #ffc073; --alerte-fond: #2a1f0f; --ok-fond: #15302a; --exclu: #f09a9a; --chip: #232c29; }
+}
+* { box-sizing: border-box; }
+html, body { margin: 0; background: var(--fond); color: var(--texte); font: 15px/1.3 -apple-system, system-ui, "Segoe UI", Roboto, sans-serif; }
+.page { max-width: 640px; margin: 0 auto; padding: calc(8px + env(safe-area-inset-top)) 10px calc(10px + env(safe-area-inset-bottom)); }
+.cache { display: none !important; }
+button { font: inherit; color: inherit; }
+
+/* Heures */
+.ligne-heures { display: grid; grid-template-columns: 1.3fr 1fr 1fr; gap: 6px; }
+.ligne-heures label { font-size: .72rem; color: var(--sourd); }
+.ligne-heures input { display: block; width: 100%; margin-top: 2px; padding: 7px 6px; font-size: .95rem; border: 1px solid var(--bord); border-radius: 8px; background: var(--carte); color: var(--texte); }
+
+/* Cadrans */
+.cadrans { display: grid; grid-template-columns: 1fr 1fr; gap: 6px; margin-top: 6px; }
+.cadran { background: var(--carte); border: 1px solid var(--bord); border-radius: 10px; padding: 6px 6px 7px; }
+.cadran.large { grid-column: 1 / -1; }
+.cadran .lib { display: block; font-size: .72rem; color: var(--sourd); margin-bottom: 4px; }
+.chips { display: flex; flex-wrap: wrap; gap: 4px; }
+.chips button { flex: 1 1 auto; min-height: 36px; padding: 4px 8px; border: 1px solid var(--bord); border-radius: 8px; background: var(--chip); font-size: .9rem; }
+.chips button.actif { background: var(--accent); color: var(--accent-texte); border-color: var(--accent); font-weight: 600; }
+.info { min-height: 0 !important; width: 18px; height: 18px; padding: 0; border-radius: 50%; border: 1px solid var(--sourd); background: none; color: var(--sourd); font-size: .7rem; vertical-align: middle; }
+.aide { color: var(--sourd); font-size: .78rem; margin: 6px 2px 0; }
+
+/* Actes */
+.actes-bloc { margin-top: 8px; background: var(--carte); border: 1px solid var(--bord); border-radius: 10px; padding: 6px; }
+.familles { flex-wrap: nowrap; overflow-x: auto; padding-bottom: 2px; scrollbar-width: none; }
+.familles button { flex: 0 0 auto; min-height: 30px; font-size: .78rem; padding: 2px 10px; border-radius: 999px; }
+.actes { margin-top: 6px; max-height: 30vh; overflow-y: auto; }
+.actes button { flex: 0 1 auto; min-height: 34px; font-size: .85rem; text-align: left; }
+.actes button .prix { color: var(--sourd); font-size: .75rem; margin-left: 4px; }
+.actes button.actif .prix { color: inherit; opacity: .85; }
+
+/* Résultat */
+.resultat { position: sticky; bottom: 0; margin-top: 8px; background: var(--carte); border: 1px solid var(--accent); border-radius: 12px; padding: 8px; box-shadow: 0 -4px 16px rgba(0,0,0,.12); }
+.resume { display: flex; align-items: baseline; justify-content: space-between; gap: 8px; cursor: pointer; }
+.resume .nom::after { content: ' ▸'; color: var(--sourd); font-weight: 400; }
+.resultat.ouvert .resume .nom::after { content: ' ▾'; }
+#detail, .alertes { display: none; }
+.resultat.ouvert #detail, .resultat.ouvert .alertes { display: block; }
+.resume .nom { font-weight: 600; font-size: .9rem; }
+.resume .total { font-size: 1.6rem; font-weight: 700; white-space: nowrap; }
+.resume .manuel { color: var(--alerte); font-size: .75rem; }
+.lignes { width: 100%; border-collapse: collapse; font-size: .85rem; margin-top: 4px; }
+.lignes td { padding: 3px 2px; border-top: 1px solid var(--bord); vertical-align: top; }
+.lignes td.code { font-family: ui-monospace, Menlo, monospace; white-space: nowrap; font-size: .8rem; }
+.lignes td.montant { text-align: right; white-space: nowrap; font-variant-numeric: tabular-nums; }
+.lignes .note { display: block; color: var(--sourd); font-size: .72rem; }
+.exclu { color: var(--exclu); font-size: .78rem; margin: 2px 0; }
+.voies { display: flex; gap: 6px; margin-top: 6px; }
+.voies button { flex: 1; min-height: 44px; padding: 4px; border: 1px solid var(--bord); border-radius: 8px; background: var(--chip); font-size: .78rem; line-height: 1.2; }
+.voies button.retenue { border-color: var(--accent); background: var(--ok-fond); font-weight: 600; }
+.voies button.recommandee::after { content: " ★"; }
+.voies button:disabled { opacity: .45; }
+.voies .m { display: block; font-size: .9rem; font-variant-numeric: tabular-nums; }
+.alertes { font-size: .78rem; color: var(--alerte); margin-top: 4px; }
+.alertes p { margin: 2px 0; }
+.alertes .info-p { color: var(--sourd); }
+.deux { display: grid; grid-template-columns: 1fr 1fr; gap: 6px; margin-top: 6px; }
+button.principal, button.secondaire { min-height: 44px; border-radius: 10px; font-weight: 600; font-size: .95rem; }
+button.principal { background: var(--accent); color: var(--accent-texte); border: none; }
+button.secondaire { background: var(--chip); border: 1px solid var(--bord); }
+textarea { width: 100%; margin-top: 6px; font: .8rem/1.3 ui-monospace, Menlo, monospace; padding: 8px; border: 1px solid var(--bord); border-radius: 8px; background: var(--fond); color: var(--texte); white-space: pre-wrap; word-break: break-word; }
+.references { margin-top: 10px; font-size: .85rem; }
+.references .carte { background: var(--carte); border: 1px solid var(--bord); border-radius: 10px; padding: 8px; margin-top: 6px; }
+.references dt { font-weight: 600; margin-top: 6px; } .references dd { margin: 1px 0 0; color: var(--sourd); word-break: break-word; }
+.pied { text-align: center; color: var(--sourd); font-size: .72rem; margin: 10px 0 0; }
+.codes { margin-top: 4px; font-size: .82rem; line-height: 1.5; }
+.codes .c { font-family: ui-monospace, Menlo, monospace; background: var(--chip); border: 1px solid var(--bord); border-radius: 6px; padding: 0 5px; margin-right: 3px; white-space: nowrap; }
+.codes .etab { color: var(--sourd); }
+.codes .etab .c { opacity: .8; }

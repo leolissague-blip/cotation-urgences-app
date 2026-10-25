@@ -1,0 +1,12 @@
+{
+  "name": "Cotation urgences",
+  "short_name": "Cotation",
+  "description": "Aide à la cotation NGAP/CCAM de l'urgentiste en clinique (usage personnel).",
+  "start_url": "./index.html",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#f4f6f5",
+  "theme_color": "#1b5e52",
+  "lang": "fr",
+  "icons": [{ "src": "icone.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "any" }]
+}

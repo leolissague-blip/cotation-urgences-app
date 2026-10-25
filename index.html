@@ -1,0 +1,70 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#1b5e52">
+<title>Cotation urgences</title>
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="icon" href="icone.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="icone.svg">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Cotation">
+<link rel="stylesheet" href="app.css">
+</head>
+<body>
+<main class="page">
+  <!-- Ligne 1 : date et heures -->
+  <div class="ligne-heures">
+    <label>Date<input type="date" id="date"></label>
+    <label>Acte<input type="time" id="heureActe"></label>
+    <label>Appel<input type="time" id="heureAppel"></label>
+  </div>
+
+  <!-- Cadrans : deux colonnes -->
+  <div class="cadrans">
+    <div class="cadran"><span class="lib">Jour</span>
+      <div class="chips" id="jour"><button data-v="semaine">Sem.</button><button data-v="samedi">Sam.</button><button data-v="dimanche">Dim.</button><button data-v="ferie">Férié</button></div></div>
+    <div class="cadran"><span class="lib">Urgence art. 14 <button class="info" id="info-art14" title="Définition">?</button></span>
+      <div class="chips" id="urgence"><button data-v="false" class="actif">Non</button><button data-v="true">Oui</button></div></div>
+    <div class="cadran"><span class="lib">Âge</span>
+      <div class="chips" id="age"><button data-v="<4m">&lt; 4 mois</button><button data-v="<6">&lt; 6 ans</button><button data-v="6-15">6–15</button><button data-v="16-44" class="actif">16–44</button><button data-v="45-74">45–74</button><button data-v=">75">≥ 75</button></div></div>
+    <div class="cadran"><span class="lib">Arrivée</span>
+      <div class="chips" id="arrivee"><button data-v="autre" class="actif">Autre</button><button data-v="ambulance">Ambu.</button><button data-v="samu">SAMU</button></div></div>
+    <div class="cadran"><span class="lib">CCMU</span>
+      <div class="chips" id="ccmu"><button data-v="1">1</button><button data-v="2" class="actif">2</button><button data-v="3">3</button><button data-v="4">4</button><button data-v="5">5</button></div></div>
+    <div class="cadran"><span class="lib">Devenir</span>
+      <div class="chips" id="hospitalise"><button data-v="false" class="actif">Domicile</button><button data-v="true">Hospit.</button></div></div>
+    <div class="cadran large"><span class="lib">Établissement (suppléments de la clinique)</span>
+      <div class="chips" id="etab"><button data-v="biologie">Biologie</button><button data-v="imagerie">Imagerie radiologue</button><button data-v="avis_specialiste">Avis spécialiste</button></div></div>
+  </div>
+  <p class="aide cache" id="texte-art14">Affection, ou suspicion d'affection, mettant en jeu la vie du patient ou l'intégrité de son organisme et nécessitant la mobilisation rapide de ressources humaines et matérielles (NGAP art. 14). Condition des majorations de nuit et de dimanche. Nuit : appel entre 19 h et 7 h, acte entre 20 h et 8 h.</p>
+
+  <!-- Actes : familles puis puces -->
+  <div class="actes-bloc">
+    <div class="chips familles" id="familles"></div>
+    <div class="chips actes" id="actes"></div>
+  </div>
+
+  <!-- Résultat : toujours visible en bas -->
+  <div class="resultat" id="resultat">
+    <div class="resume" id="resume"></div>
+    <div class="codes" id="codes"></div>
+    <div class="voies" id="voies"></div>
+    <div class="alertes" id="alertes"></div>
+    <div class="transmission cache" id="bloc-transmission">
+      <textarea id="transmission" readonly rows="7"></textarea>
+      <div class="deux"><button class="principal" id="partager">Partager</button><button class="secondaire" id="copier">Copier</button></div>
+      <p class="aide">Sans identité patient : ajoutez le repère de dossier dans votre message si besoin.</p>
+    </div>
+    <div class="deux"><button class="principal" id="transmettre">Transmettre</button><button class="secondaire" id="references">Références</button></div>
+  </div>
+
+  <div class="references cache" id="bloc-references"></div>
+  <p class="pied"><span id="version"></span> · usage personnel · ne remplace pas la nomenclature</p>
+</main>
+<script src="regles.js"></script>
+<script src="moteur.js"></script>
+<script src="ui.js"></script>
+</body>
+</html>
